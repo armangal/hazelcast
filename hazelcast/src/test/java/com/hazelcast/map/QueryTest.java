@@ -46,6 +46,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.hazelcast.query.SampleObjects.*;
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(HazelcastJUnit4ClassRunner.class)
 @Category(ParallelTest.class)
@@ -1345,6 +1346,7 @@ public class QueryTest extends HazelcastTestSupport {
                                 break;
                             }
                             Value v1 = map.get(name);
+                            assertEquals(v, v1);
                             EntryObject e = new PredicateBuilder().getEntryObject();
                             Predicate<?, ?> predicate = e.get("name").equal(name);
                             Collection<Value> values = map.values(predicate);
