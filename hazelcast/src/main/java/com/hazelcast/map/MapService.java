@@ -332,11 +332,11 @@ public class MapService implements ManagedService, MigrationAwareService,
 
     private void migrateIndex(PartitionMigrationEvent event) {
         final PartitionContainer container = partitionContainers[event.getPartitionId()];
-        for (PartitionRecordStore mapPartition : container.getMaps().values()) {
-            final MapContainer mapContainer = getMapContainer(mapPartition.name);
+        for (PartitionRecordStore recordStore : container.getMaps().values()) {
+            final MapContainer mapContainer = getMapContainer(recordStore.name);
             final IndexService indexService = mapContainer.getIndexService();
             if (indexService.hasIndex()) {
-                for (Record record : mapPartition.getRecords().values()) {
+                for (Record record : recordStore.getRecords().values()) {
                     if (event.getMigrationEndpoint() == MigrationEndpoint.SOURCE) {
                         indexService.removeEntryIndex(record.getKey());
                     } else {
